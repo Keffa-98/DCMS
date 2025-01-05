@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  password      String
+  role          Role           @default(SUPPORTWORKER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  supportWorker SupportWorker?
+}
+
+model SupportWorker {
+  id            String   @id @default(uuid())
+  last_name     String
+  first_name    String
+  date_of_birth DateTime
+  address       Address? @relation(fields: [addressId], references: [id])
+  addressId     String?
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String   @unique
+  clients       Client[]
+  tasks         Task[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Client {
+  id                 String           @id @default(uuid())
+  last_name          String
+  first_name         String
+  date_of_birth      DateTime
+  gender             Gender
+  supportWorker      SupportWorker?   @relation(fields: [supportWorkerId], references: [id])
+  address            Address?         @relation(fields: [addressId], references: [id])
+  medical_record     MedicalRecord[]
+  care_plans         CarePlan[]
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  emergencyContact   EmergencyContact @relation(fields: [emergencyContactId], references: [id])
+  supportWorkerId    String?
+  emergencyContactId String
+  addressId          String?
+}
+
+model MedicalRecord {
+  id              String       @id @default(uuid())
+  allergies       String       @default("")
+  chronicDiseases String       @default("")
+  medications     Medication[]
+  disabilityType  String
+  notes           String?
+  Client          Client?      @relation(fields: [clientId], references: [id])
+  clientId        String?
+}
+
+model Medication {
+  id              String         @id @default(uuid())
+  name            String
+  dosage          String
+  frequency       String
+  MedicalRecord   MedicalRecord? @relation(fields: [medicalRecordId], references: [id])
+  medicalRecordId String?
+}
+
+model CarePlan {
+  id          String         @id @default(uuid())
+  title       String
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+  status      CarePlanStatus @default(ACTIVE)
+  clientId    String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  client      Client?        @relation(fields: [clientId], references: [id])
+}
+
+model Task {
+  id              String         @id @default(uuid())
+  description     String
+  dueDate         DateTime
+  status          TaskStatus     @default(PENDING)
+  notes           String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  SupportWorker   SupportWorker? @relation(fields: [supportWorkerId], references: [id])
+  supportWorkerId String?
+}
+
+enum TaskStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model Address {
+  id            String          @id @default(uuid())
+  street        String
+  city          String
+  state         String
+  zip           String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Client        Client[]
+  SupportWorker SupportWorker[]
+}
+
+model EmergencyContact {
+  id         String   @id @default(uuid())
+  last_name  String
+  first_name String
+  phone      String
+  email      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Client     Client[]
+}
+
+enum Role {
+  SUPPORTWORKER
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum CarePlanStatus {
+  ACTIVE
+  COMPLETED
+  ON_HOLD
+  CANCELED
+}
