@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+
+
+
+:root {
+    --light: #f4fbff;
+    --dark: #215273;
+    --secondary: #d9e9f4;
+    --success-pale: #67bc7c;
+    --success: #33da5d;
+    --black: #010c14;
+}
+
+.nav-link{
+    font-weight: bold !important;
+}
+.disabled{
+    color: #539664 !important;
+}
+
+
+.bg-dark,
+.btn-dark {
+    background-color: var(--dark) !important;
+    border-color: var(--dark) !important;
+}
+
+.bg-success,
+.btn-success {
+    background-color: var(--success) !important;
+    border-color: var(--success);
+}
+
+.bg-light,
+.btn-light {
+
+    background-color: var(--light) !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.bg-secondary,
+.btn-secondary {
+    background-color: var(--secondary) !important;
+}
+.plan-active{
+    background-color: #33da5d94 !important;
+}
+
+
+.text-dark {
+    color: var(--dark) !important;
+}
+
+.text-success {
+    color: var(--success) !important;
+}
+
+.text-light {
+
+    color: var(--light) !important;
+}
+
+.text-secondary {
+    color: var(--secondary) !important;
+}
+
+
+input {
+    background-color: var(--light) !important;
+}
