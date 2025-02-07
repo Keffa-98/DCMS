@@ -1,0 +1,60 @@
+<nav class="w-full p-5 container flex justify-between mx-auto">
+  <div>
+    <a href="#" class="text-gray-600 font-bold">DCMS</a>
+  </div>
+
+  <div>
+    <ul class="flex gap-5">
+      {{req.user.email }}
+      {% if user %}
+      <li>
+        <a href="/auth/signout" class="text-gray-600">{{
+          user.email
+        }}</a>
+      </li>
+      {% else %}
+      <li>
+        <a href="/auth/signin" class="text-success">SignIn</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+<!-- <div
+  class="offcanvas offcanvas-start bg-dark text-white"
+  tabindex="-1"
+  id="mobilemenu"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header shadow">
+    <h5
+      class="offcanvas-title text-center fw-bold w-100"
+      id="offcanvasExampleLabel"
+    >
+      ACMS
+    </h5>
+    <button
+      type="button"
+      class="btn-close text-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+    </ul>
+  </div>
+</div> -->
