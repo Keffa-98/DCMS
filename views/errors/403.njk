@@ -1,0 +1,14 @@
+{% extends "formsLayout.njk" %} {% block form %}
+
+<div>
+  <h1 class="py-5 font-extrabold text-7xl">403 Unauthorized</h1>
+  <p class="">{{message}}</p>
+  <div class="py-10">
+    <a
+      class="py-1.5 px-5 bg-gray-800 text-white font-semibold rounded-md"
+      href="/dashboard"
+      >Return Home</a
+    >
+  </div>
+</div>
+{% endblock %}
