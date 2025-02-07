@@ -40,7 +40,7 @@ const findOne = async (id) => {
   });
 };
 const create = async (body) => {
-  console.log({ details, supportWorkerId });
+  const {supportWorkerId, ...details} = body
 
   return prisma.task.create({
     data: {

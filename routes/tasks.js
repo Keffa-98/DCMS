@@ -19,27 +19,6 @@ router.get("", async (req, res, next) => {
 
   return res.render("tasks/task-list", { tasks, user: req.user });
 });
-router.get("/:id", async (req, res, next) => {
-  try {
-    const task = await tasksService.findOne(req.params.id);
-    console.log({ task });
-
-    if (!task) {
-      return next(createHttpError(404, "Task not Found"));
-    }
-    return res.render("tasks/task", { user: req.user, task });
-  } catch (error) {
-    return next(createHttpError(500, error.message));
-  }
-});
-router.get("/:id/complete", async (req, res, next) => {
-  try {
-    await tasksService.completeTask(req.user.id, req.params.id);
-    return res.redirect(`/tasks/${req.params.id}`);
-  } catch (error) {
-    return next(createHttpError(500, error.message));
-  }
-});
 
 router.get("/new", async (req, res) => {
   const supportworkers = await supportworkerService.find();
@@ -64,6 +43,31 @@ router.post("/new", async (req, res, next) => {
     return next(createHttpError(500, error));
   }
 });
+
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const task = await tasksService.findOne(req.params.id);
+    console.log({ task });
+
+    if (!task) {
+      return next(createHttpError(404, "Task not Found"));
+    }
+    return res.render("tasks/task", { user: req.user, task });
+  } catch (error) {
+    return next(createHttpError(500, error.message));
+  }
+});
+router.get("/:id/complete", async (req, res, next) => {
+  try {
+    await tasksService.completeTask(req.user.id, req.params.id);
+    return res.redirect(`/tasks/${req.params.id}`);
+  } catch (error) {
+    return next(createHttpError(500, error.message));
+  }
+});
+
+
 
 function validateTaskForm(body) {
   const errors = {};
