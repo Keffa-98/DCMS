@@ -1,0 +1,256 @@
+{% extends "base.njk" %} {% block content %}
+<div class="p-5 bg-white max-w-3xl mx-auto">
+  <form action="/clients/new" method="POST" class="space-y-5 p-5">
+    <div class="py-5 w-full">
+      <p class="text-gray-600 font-semibold text-lg">New Client Form</p>
+      <p class="py-2 leading-relaxed text-gray-600">
+        Please fill out the form below to add a new client to the system. Note
+        fields marked with <span class="text-red-400">*</span> are .
+      </p>
+    </div>
+    {% if error %}
+    <div class="bg-red-200 p-3">
+      <p class="text-red-600">{{ error }}</p>
+    </div>
+    {% endif %}
+    <p class="py-3 text-gray-500 font-semibold">Client Personal Information</p>
+    <hr class="border-gray-200" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Client First Name</label
+        >
+        <input
+          type="text"
+          name="client_fname"
+          value="{{ form.client_fname }}"
+          placeholder="Client First Name"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_fname %}
+        <p class="text-red-600">{{ errors.client_fname }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Client Last Name</label
+        >
+        <input
+          type="text"
+          name="client_lname"
+          value="{{ form.client_lname }}"
+          placeholder="Client Last Name"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_lname %}
+        <p class="text-red-600">{{ errors.client_lname }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- next -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Date of Birth</label
+        >
+        <input
+          type="date"
+          name="client_dob"
+          min="1900-01-01"
+          max="2021-12-31"
+          value="{{ form.client_dob }}"
+          class="border appearance-none border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_dob %}
+        <p class="text-red-600">{{ errors.client_dob }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Client Gender</label
+        >
+        <select
+          class="border bg-sky-50 border-gray-200 py-1 px-3 rounded appearance-none"
+          name="client_gender"
+        >
+          <option value="" selected class="text-gray-400">
+            --Select Gender--
+          </option>
+          <option value="MALE">Male</option>
+          <option value="FEMALE">Female</option>
+          <option value="OTHER">Other</option>
+        </select>
+        {% if errors and errors.client_gender %}
+        <p class="text-red-600">{{ errors.client_gender }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <hr class="border-gray-200" />
+    <p class="py-2 text-gray-500 font-semibold">Client Address Information</p>
+    <!-- next -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Street</label
+        >
+        <input
+          type="text"
+          name="client_street"
+          value="{{ form.client_street }}"
+          placeholder="Street"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_street %}
+        <p class="text-red-600">{{ errors.client_street }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >City</label
+        >
+        <input
+          type="text"
+          name="client_city"
+          value="{{ form.client_city }}"
+          placeholder="City"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_city %}
+        <p class="text-red-600">{{ errors.client_city }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >State</label
+        >
+        <input
+          type="text"
+          name="client_state"
+          value="{{ form.client_state }}"
+          placeholder="State"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_state %}
+        <p class="text-red-600">{{ errors.client_state }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Zip</label
+        >
+        <input
+          type="text"
+          name="client_zip"
+          value="{{ form.client_zip }}"
+          placeholder="Zip"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.client_zip %}
+        <p class="text-red-600">{{ errors.client_zip }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <hr class="border-gray-200" />
+    <p class="py-2 text-gray-500 font-semibold">
+      Emergency Contact Information
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >First Name</label
+        >
+        <input
+          type="text"
+          name="emergency_fname"
+          value="{{ form.emergency_fname }}"
+          placeholder="First Name"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.emergency_fname %}
+        <p class="text-red-600">{{ errors.emergency_fname }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Last Name</label
+        >
+        <input
+          type="text"
+          name="emergency_lname"
+          value="{{ form.emergency_lname }}"
+          placeholder="Last Name"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.emergency_lname %}
+        <p class="text-red-600">{{ errors.emergency_lname }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Phone</label
+        >
+        <input
+          type="tel"
+          name="emergency_phone"
+          value="{{ form.emergency_phone }}"
+          placeholder="Phone"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.emergency_phone %}
+        <p class="text-red-600">{{ errors.emergency_phone }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Email</label
+        >
+        <input
+          type="Email"
+          name="emergency_email"
+          value="{{ form.emergency_email }}"
+          placeholder="Email Address"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.emergency_email %}
+        <p class="text-red-600">{{ errors.emergency_email }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="py-5 text-center">
+      <button type="submit" class="py-1.5 px-5 rounded bg-green-600 text-white">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
