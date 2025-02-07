@@ -1,0 +1,36 @@
+{% extends "base.njk" %} {% block content %}
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold py-10">Task Details</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-gray-600">Description</label>
+        <p class="text-gray-900">{{ task.details }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Status</label>
+        <p class="text-gray-900">{{ task.status }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Due Date</label>
+        <p class="text-gray-900">
+          {{task.dueDate | date('Do MMMM YYYY')}}
+        </p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Assigned At</label>
+        {{task.createdAt | date('Do MMMM YYYY')}}
+      </div>
+    </div>
+   {% if user.role !=='ADMIN' and task.SupportWorker.userId ===user.id and task.status === PENDING%}
+     <div class="py-5">
+      <a
+        class="py-1 px-3 rounded-md bg-gray-700 text-white"
+        href="/tasks/{{ task.id }}/complete"
+        >Complete Task</a
+      >
+    </div>
+   {% endif %}
+  </div>
+</div>
+{% endblock %}

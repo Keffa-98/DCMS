@@ -1,0 +1,72 @@
+{% extends "base.njk" %} {% block content %}
+<div class="p-5 bg-white max-w-3xl mx-auto">
+  <div class="p-5">
+    <p class="text-gray-600 font-semibold text-lg">Add New Task</p>
+  </div>
+  {% if error %}
+  <div class="bg-red-200 p-3">
+    <p class="text-red-600">{{ error }}</p>
+  </div>
+  {% endif %}
+  <form  method="post" class="p-5">
+    <div class="flex flex-col gap-5 p-5">
+      <div class="flex flex-col gap-2">
+        <label for="description" class="text-gray-600 font-semibold">Description</label>
+        <input
+          type="text"
+          name="description"
+          value="{{form.description}}"
+          id="description"
+          class="border border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.description %}
+            <p class="text-red-600">{{ errors.description }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Due Date</label
+        >
+        <input
+          type="date"
+          name="due"
+          min="1900-01-01"
+          value="{{ form.due }}"
+          class="border appearance-none border-gray-200 rounded py-1 px-3"
+        />
+        {% if errors and errors.due %}
+        <p class="text-red-600">{{ errors.due }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="workerId" class="text-gray-600 font-semibold">Support Worker</label>
+        <select
+          name="workerId"
+          id="workerId"
+          value="{{form.workerId}}"
+          class="border border-gray-200 rounded py-1 px-3"
+        >
+          <option value="" selected>Select Support Worker</option>
+          {% for supportworker in supportworkers %}
+            
+          <option value="{{supportworker.id}}">{{supportworker.first_name}} {{supportworker.last_name}}</option>
+          {% endfor %}
+        </select>
+        {% if errors and errors.workerId %}
+            <p class="text-red-600">{{ errors.workerId }}</p>
+        {% endif %}
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="py-1.5 px-5 bg-green-600 rounded text-white"
+        >
+          Add User
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
