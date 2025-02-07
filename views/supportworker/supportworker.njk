@@ -1,0 +1,86 @@
+{% extends "base.njk" %} {% block content %}
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+  <!-- Personal Information Section -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Personal Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-gray-600">First Name</label>
+        <p class="text-gray-900">{{ supportworker.first_name }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Last Name</label>
+        <p class="text-gray-900">{{ supportworker.last_name }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Date of Birth</label>
+        <p class="text-gray-900">
+          {{supportworker.date_of_birth | date('Do MMMM YYYY')}}
+        </p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Gender</label>
+        <p class="text-gray-900">{{ supportworker.gender | title }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Section -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Address</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-gray-600">Street</label>
+        <p class="text-gray-900">{{ supportworker.address.street }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">City</label>
+        <p class="text-gray-900">{{ supportworker.address.city }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">State</label>
+        <p class="text-gray-900">{{ supportworker.address.state }}</p>
+      </div>
+      <div>
+        <label class="block text-gray-600">Zip Code</label>
+        <p class="text-gray-900">{{ supportworker.address.zip }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clients Section -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Assigned Clients</h2>
+    <table class="w-full border-collapse mb-3">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="p-3 text-left">First Name</th>
+          <th class="p-3 text-left">Last Name</th>
+          <th class="p-3 text-center"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for client in supportworker.clients %}
+        <tr class="border-b border-gray-200">
+          <td class="p-3">{{ client.first_name }}</td>
+          <td class="p-3">{{ client.last_name }}</td>
+          {% if user.role === 'ADMIN' %}
+          <td> <a class="px-3 py-1 bg-red-400 font-semibold text-sm text-white rounded-md" href="/admin/unassign-client/{{supportworker.id}}?clientId={{client.id}}">UnAssign</a> </td>
+
+          {% endif %}
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+    <a
+      href="/admin/assign-client/{{ supportworker.id }}"
+      class="mt-4 bg-gray-800 font-semibold text-white py-1 px-3 rounded-lg hover:bg-gray-700"
+    >
+      Assign Client
+    </a>
+  </div>
+
+  
+</div>
+{% endblock %}

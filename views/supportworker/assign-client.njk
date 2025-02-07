@@ -1,0 +1,57 @@
+{% extends "base.njk" %} {% block content %}
+<div class="p-5 bg-white max-w-3xl mx-auto">
+  <form  method="POST" class="space-y-5 p-5">
+    <div class="py-5 w-full">
+      <p class="text-gray-600 font-semibold text-lg">Assign Support Worker Client Form</p>
+      <p class="py-2 leading-relaxed text-gray-600">
+        Please fill out the form below to assign support worker a client. Note
+        fields marked with <span class="text-red-400">*</span> are required.
+      </p>
+    </div>
+    {% if error %}
+    <div class="bg-red-200 p-3">
+      <p class="text-red-600">{{ error }}</p>
+    </div>
+    {% endif %}
+    <p class="py-3 text-gray-500 font-semibold">Personal Information</p>
+    <hr class="border-gray-200" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2">
+        <label
+          for="email"
+          class="text-gray-600 text-sm after:content-['*'] after:text-red-400"
+          >Select Client</label
+        >
+        
+      </div>
+      <div class="flex flex-col gap-2">
+        
+        <select
+          class="border bg-sky-50 border-gray-200 py-1 px-3 rounded appearance-none"
+          name="client"
+        >
+          <option value="" selected class="text-gray-400">
+            --Select Client--
+          </option>
+          {% for client in clients %}
+            
+          <option value="{{client.id}}">{{client.first_name}} {{client.last_name}}</option>
+          {% endfor %}
+          
+        </select>
+        {% if errors and errors.client %}
+        <p class="text-red-600">{{ errors.client }}</p>
+        {% endif %}
+      </div>
+    </div>
+    
+    
+    <div class="py-5 text-center">
+      <button type="submit" class="py-1.5 px-5 rounded bg-green-600 text-white">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
