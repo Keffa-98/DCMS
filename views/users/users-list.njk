@@ -1,0 +1,30 @@
+{% extends "base.njk" %} {% block content %}
+<div class="p-5 bg-white">
+  <div class="flex justify-between p-5 w-full">
+    <p class="text-gray-600 font-semibold text-lg">Users</p>
+    <a href="/users/new" class="py-1.5 px-5 bg-green-600 rounded text-white"
+      >Add User</a
+    >
+  </div>
+  <table class="table-auto w-full bg-white rounded p-5">
+    <thead>
+      <tr class="border-b border-gray-200 text-black font-semibold *:p-2">
+        <th>Email</th>
+        <th>Role</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr class="border-b border-gray-200 *:p-2">
+        <td>{{ user.email }}</td>
+        <td>{{ user.role | title }}</td>
+        <td>{{ user.createdAt | date }}</td>
+        <td>{{ user.updatedAt | date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
